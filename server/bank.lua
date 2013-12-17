@@ -1,3 +1,11 @@
+--[[
+
+Original by Philpax: https://github.com/Philpax/jc2mp-bank
+Modified by xogador to allow for a starting capital when first joining the server
+
+--]]
+
+
 class 'Bank'
 
 function Player:SteamId()
@@ -53,6 +61,12 @@ function Bank:PlayerJoin( args )
 
     if #result > 0 then
         args.player:SetMoney( tonumber(result[1].money) )
+    else
+        --Sets starting capital to 5000 on first join
+        args.player:SetMoney(5000)
+        args.player:SendChatMessage(
+            "Welcome to this server. You have been given $5 000 as a starting capital.",
+            Color( 255, 0, 0 ) )
     end
 
     self:MarkUpdated( args.player )
